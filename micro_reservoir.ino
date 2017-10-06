@@ -1,6 +1,7 @@
 int IDLE_STATE = 0;
 int LIGHT_ON_STATE =1;
 boolean isHigh = false;
+int onlineTest= true;
 int D3 = 3; 
 void setup() {
   // put your setup code here, to run once:
