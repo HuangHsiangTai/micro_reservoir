@@ -1,5 +1,10 @@
-int IDLE_STATE = 0;
-int LIGHT_ON_STATE =1;
+#include <CircularBuffer.h>
+int LIGHT_IDLE_STATE = 0;
+int LIGHT_ACTIVE_STATE =1;
+int WATER_DETECTION_MS_IN_IDLE_STATE = 4000;
+int WATER_DETECTION_MS_IN_ACTIVE_STATE = 1000;
+int LIGHT_LENGTH = 6;
+CircularBuffer<int,LIGHT_LENGTH>lightList;
 boolean isHigh = false;
 int onlineTest= true;
 int D3 = 3; 
@@ -9,6 +14,15 @@ void setup() {
   pinMode(D3, OUTPUT);
 }
 
+int averageLight(){
+  int i;
+  int out=0;
+  for(i=0; i<LIGHT_LENGTH; i++){
+    out = out + lightList[i];
+  }
+  return out/LIGHT_LENGTH;
+}
+
 void loop() {
   // put your main code here, to run repeatedly:
   // read the input on analog pin 0:
@@ -16,8 +30,12 @@ void loop() {
   // print out the value you read:
   Serial.print("light sensor value=");
   Serial.print(lightSensor);
+  lightList.push(lightSensor);
+  Serial.print(",average light value=");
+  int aveLight = 
+  Serial.print("
   int waterSensor = analogRead(A1);
-   Serial.print("\twater sensor value=");
+   Serial.print("water sensor value=");
    Serial.println(waterSensor);
   //Serial.println("water sensor value=%d", waterSensor);
   if (isHigh){
