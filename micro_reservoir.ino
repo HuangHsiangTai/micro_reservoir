@@ -1,7 +1,9 @@
 #include <CircularBuffer.h>
-int LIGHT_IDLE_STATE = 0;
-int LIGHT_ACTIVE_STATE =1;
-int WATER_DETECTION_MS_IN_IDLE_STATE = 4000;
+int LIGHT_UNKNOWN_STATE = 0;
+int LIGHT_ACTIVE_STATE = 1;
+int LIGHT_INACTIVE_STATE = 2;
+int WATER_DETECTION_MS_IN_UNKNOWN_STATE = 4000;
+int WATER_DETECTION_MS_IN_INACTIVE_STATE = 4000;
 int WATER_DETECTION_MS_IN_ACTIVE_STATE = 1000;
 int LIGHT_LENGTH = 6;
 CircularBuffer<int,LIGHT_LENGTH>lightList;
@@ -30,10 +32,10 @@ void loop() {
   // print out the value you read:
   Serial.print("light sensor value=");
   Serial.print(lightSensor);
-  lightList.push(lightSensor);
   Serial.print(",average light value=");
-  int aveLight = 
-  Serial.print("
+  int aveLight = averageLight();
+  Serial.println(aveLight);
+  lightList.push(lightSensor);
   int waterSensor = analogRead(A1);
    Serial.print("water sensor value=");
    Serial.println(waterSensor);
