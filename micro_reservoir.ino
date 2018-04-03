@@ -1,8 +1,8 @@
 #include <CircularBuffer.h>
-int WATER_THRESHOlD = 1200;
-int WATER_STANDBY_DETECTION_MS = 3000;
+int WATER_THRESHOlD = 2000;
+int WATER_STANDBY_DETECTION_MS = 2500;
 int WATER_ACTIVE_DETECTION_MS = 500;
-int MAX_ADD_WATER_TIME = 10000;
+int MAX_ADD_WATER_TIME = 25000;
 int STAND_BY_STATE = 0;
 int ADD_WATER_STATE = 1;
 
@@ -23,15 +23,15 @@ void loop() {
   //int lightSensor = analogRead(A0);
   //TODO: check time out
   int waterSensor = analogRead(A1);
-   Serial.print("water sensor value=");
-   Serial.println(waterSensor);
-   if(waterSensor >= WATER_THRESHOlD){
+   //Serial.print("water sensor value=");
+   //Serial.println(waterSensor);
+   if(waterSensor <= WATER_THRESHOlD){
      if(enableRelay){
        digitalWrite(D3, LOW);
-       Serial.println("stop adding water");
+       //Serial.println("stop adding water");
        enableRelay= false;
      }
-     Serial.println("water level>threshold");
+     //Serial.println("water level>threshold");
      detectionTime = WATER_STANDBY_DETECTION_MS;
      addWaterTime = 0;
    } else {
@@ -40,12 +40,13 @@ void loop() {
      if(addWaterTime>=MAX_ADD_WATER_TIME) {
        enableRelay= false;
        digitalWrite(D3, LOW);
-       Serial.println("add water too much. stop adding water");
+       //Serial.println("add water too much. stop adding water");
+       detectionTime = WATER_STANDBY_DETECTION_MS;
      }else {
        if(!enableRelay){
          enableRelay= true;
          digitalWrite(D3, HIGH);
-         Serial.println("start adding water");
+         //Serial.println("start adding water");
        }
 
      }
