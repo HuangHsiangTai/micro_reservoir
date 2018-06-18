@@ -37,7 +37,8 @@
 
 ## 微型水庫實景
 ### 微型水庫操作影片
-請點選此[連結查看微型水庫操作影片](https://www.facebook.com/hsiang.tai/videos/10156040506608347/)
+[![微型水庫介紹](img/video.png)](https://www.facebook.com/hsiang.tai/videos/10156040506608347/)
+
 
 ### 微型水庫
 ![](img/IMAG0081.jpg)
